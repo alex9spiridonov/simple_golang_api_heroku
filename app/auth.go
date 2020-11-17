@@ -4,7 +4,6 @@ import (
 	"../models"
 	u "../utils"
 	"context"
-	// "fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"net/http"
 	"os"
@@ -71,7 +70,6 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		//Всё прошло хорошо, продолжаем выполнение запроса
-		// fmt.Sprintf("User %", tk.Username) //Полезно для мониторинга
 		ctx := context.WithValue(r.Context(), "user", tk.UserId)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r) //передать управление следующему обработчику!
