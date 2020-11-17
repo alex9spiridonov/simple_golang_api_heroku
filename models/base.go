@@ -31,7 +31,7 @@ func init() {
 	}
 
 	db = conn
-	db.Debug().AutoMigrate(&Account{}) //Миграция базы данных
+	db.Debug().AutoMigrate(&Account{}, &Contact{}) //Миграция базы данных
 }
 
 // возвращает дескриптор объекта DB
