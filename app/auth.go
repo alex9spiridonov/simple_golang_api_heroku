@@ -1,8 +1,8 @@
 package app
 
 import (
-	"../models"
-	u "../utils"
+	"go-contacts/models"
+	u "go-contacts/utils"
 	"context"
 	jwt "github.com/dgrijalva/jwt-go"
 	"net/http"

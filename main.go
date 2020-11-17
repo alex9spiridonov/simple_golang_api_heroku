@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./app"
-	"./controllers"
+	"go-contacts/app"
+	"go-contacts/controllers"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
