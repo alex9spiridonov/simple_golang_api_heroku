@@ -1,14 +1,14 @@
 package app
 
 import (
-	"net/http"
-	u "lens/utils"
-	"strings"
-	"go-contacts/models"
-	jwt "github.com/dgrijalva/jwt-go"
-	"os"
+	"../models"
+	u "../utils"
 	"context"
-	"fmt"
+	// "fmt"
+	jwt "github.com/dgrijalva/jwt-go"
+	"net/http"
+	"os"
+	"strings"
 )
 
 var JwtAuthentication = func(next http.Handler) http.Handler {
@@ -16,7 +16,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		notAuth := []string{"/api/user/new", "/api/user/login"} //Список эндпоинтов, для которых не требуется авторизация
-		requestPath := r.URL.Path //текущий путь запроса
+		requestPath := r.URL.Path                               //текущий путь запроса
 
 		//проверяем, не требует ли запрос аутентификации, обслуживаем запрос, если он не нужен
 		for _, value := range notAuth {
@@ -27,7 +27,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			}
 		}
 
-		response := make(map[string] interface{})
+		response := make(map[string]interface{})
 		tokenHeader := r.Header.Get("Authorization") //Получение токена
 
 		if tokenHeader == "" { //Токен отсутствует, возвращаем  403 http-код Unauthorized
@@ -71,9 +71,9 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		//Всё прошло хорошо, продолжаем выполнение запроса
-		fmt.Sprintf("User %", tk.Username) //Полезно для мониторинга
+		// fmt.Sprintf("User %", tk.Username) //Полезно для мониторинга
 		ctx := context.WithValue(r.Context(), "user", tk.UserId)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r) //передать управление следующему обработчику!
-	});
+	})
 }
